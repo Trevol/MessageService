@@ -12,8 +12,9 @@ namespace MessageService.Server.Transport
             var s = ConfigurationManager.AppSettings;
             using (var client  = new SmtpClient(s["emulation.smtpServer"]))
             {
-                client.EnableSsl = true;
-                //client.Credentials = new System.Net.NetworkCredential("", "");
+                //config this
+                //client.EnableSsl = true;
+                //client.Credentials = new System.Net.NetworkCredential("user", "pwd");
                 client.Send(s["emulation.from"], s["emulation.recipients"], "MessageService: MessageStep", body);
             }
         }
