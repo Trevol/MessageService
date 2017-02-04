@@ -11,15 +11,13 @@ namespace MessageService.Server.Storage
             Database.SetInitializer<MQDataContext>(null);
         }
         
-        public MQDataContext(string connectionString)
-            : base(connectionString)
+        public MQDataContext(string connectionString): base(connectionString)
         {
             Configuration.LazyLoadingEnabled = false;
             Configuration.ProxyCreationEnabled = false;
         }
 
-        public MQDataContext()
-            : this("MessageService")
+        public MQDataContext(): this("MessageService")
         {
         }
 

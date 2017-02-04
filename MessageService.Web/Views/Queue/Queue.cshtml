@@ -10,22 +10,21 @@
 @section koTemplates {
     @*data: SendMessageApplication*@
     <script type="text/html" id="applicationRoot">
-        <div class="row">
+        <div class="row" data-bind="busy: busy()">
             <div class="col-md-8">
                 <button class="btn btn-sm" data-bind="click: loadQueue">Refresh</button>
                 <button class="btn btn-sm" data-bind="click: queueStep">Queue Step</button>
 
                 <!--ko template: {if: !queueError(), name: 'queue', data: {items: queue(), selected: selectedMessage}} -->
                 <!--/ko-->
-                <!--ko template:{if: queueError(), name: 'error', data: {desc: 'Queue Error!', error: queueError()}} -->
+                <!--ko template:{name: 'error', data: {desc: 'Queue Error!', error: queueError}} -->
                 <!--/ko-->
-                <!--ko template:{if: queueStepError(), name: 'error', data: {desc: 'Queue Step Error!', error: queueStepError()}} -->
+                <!--ko template:{name: 'error', data: {desc: 'Queue Step Error!', error: queueStepError}} -->
                 <!--/ko-->
 
             </div>
 
             <div class="col-md-4" data-bind="template: {name: 'attempts', data: selectedMessage()}">
-
             </div>
         </div>
 
@@ -75,7 +74,7 @@
             </thead>
             <tbody>
             <!--ko foreach: items -->
-            <tr data-bind="css: {success: $parent.selected() === $data}, click: function(){$parent.selected($data)}">
+            <tr data-bind="css: {success: $parent.selected() === $data}, on.click: $parent.selected($data)">
                 <td data-bind="text: id"></td>
                 <td data-bind="text: createdOn">CreatedOn</td>
                 <td data-bind="text: mq.TextMessageType[messageType]">Type</td>

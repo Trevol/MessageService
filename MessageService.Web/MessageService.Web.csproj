@@ -155,6 +155,8 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\app\bindings\busy.js" />
+    <Content Include="Scripts\app\libsConfig.js" />
     <Content Include="Scripts\app\messageQueueApp\MessageQueueApplication.js" />
     <Content Include="Scripts\app\MessageServiceClient.js" />
     <Content Include="Scripts\app\entities\TextMessageType.js" />
@@ -167,6 +169,8 @@
     <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <Content Include="Scripts\knockout-3.4.1.debug.js" />
     <Content Include="Scripts\knockout-3.4.1.js" />
+    <Content Include="Scripts\knockout.punches.js" />
+    <Content Include="Scripts\knockout.punches.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\q.js" />
     <Content Include="Scripts\q.min.js" />

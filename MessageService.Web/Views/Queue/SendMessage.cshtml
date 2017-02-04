@@ -10,7 +10,7 @@
 @section koTemplates {
     @*data: SendMessageApplication*@
     <script type="text/html" id="applicationRoot">
-        <div class="row">
+        <div class="row" data-bind="busy: busy()">
             <div class="col-md-8">
                 
                 <form>
@@ -26,7 +26,7 @@
                 
             </div>            
             <div class="col-md-4">
-                <!--ko template:{if: error(), name: 'error', data: {desc: 'Send Message Error!', error: error()}} -->
+                <!--ko template:{name: 'error', data: {desc: 'Send Message Error!', error: error}} -->
                 <!--/ko-->
             </div>
         </div>

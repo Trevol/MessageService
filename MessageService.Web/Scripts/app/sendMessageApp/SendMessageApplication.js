@@ -15,6 +15,7 @@
         }
 
         this.error = ko.observable();
+        this.busy = ko.observable(false);
         return this;
     }
 
@@ -44,6 +45,7 @@
             .then(function() {
                 this.clearMessage();
             }.bind(this))
+            .withProgressFlag(this.busy)
             .catch(function(err) {
                 this.error(err);
             }.bind(this));

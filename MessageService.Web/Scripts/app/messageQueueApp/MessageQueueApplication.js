@@ -14,6 +14,8 @@
         this.queueError = ko.observable();
         this.queueStepError = ko.observable();
 
+        this.busy = ko.observable(false);
+
         this.loadQueue();
         return this;
     }
@@ -29,6 +31,8 @@
                 this.queue(messages);
             }.bind(this))
 
+            .withProgressFlag(this.busy)
+
             .catch(function (err) {
                 this.queueError(err);
                 console.log(err);
@@ -39,21 +43,24 @@
         this.client.queueStep()
 
             .then(function (attempt) {
-
+                processAttempt(attempt);
                 return this.loadQueue(10);
             }.bind(this))
 
+            .withProgressFlag(this.busy)
+
             .catch(function(err) {
+                //debugger;
                 this.queueStepError(err);
                 console.log(err);
             }.bind(this));
     }
     function processAttempt(attempt) {
         if (!attempt) {
-            throw new Error('No attempt returned/ May be queue is empty');
+            throw 'No attempt returned. May be queue is empty or message send prevented by policy';
         }
         if (!attempt.success) {
-            throw new Error(attempt.errorInfo);
+            throw attempt.errorInfo;
         }
     }
 })();

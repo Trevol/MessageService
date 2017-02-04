@@ -12,6 +12,7 @@ namespace MessageService.Web
                 .Include("~/Scripts/jquery-{version}.js")
                 .Include("~/Scripts/bootstrap.js", "~/Scripts/respond.js")
                 .Include("~/Scripts/knockout-3.4.1.js")
+                .Include("~/Scripts/knockout.punches.min.js")
                 .Include("~/Scripts/q.min.js")
                 .Include("~/Scripts/underscore.min.js");
             bundles.Add(libs);
