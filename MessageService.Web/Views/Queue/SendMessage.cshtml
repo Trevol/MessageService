@@ -1,0 +1,35 @@
+﻿@section scripts {
+    <script>
+        $(function () {            
+            ko.applyBindings(new mq.SendMessageApplication(), document.getElementById('appViewport'));
+        })
+    </script>
+}
+
+
+@section koTemplates {
+    @*data: SendMessageApplication*@
+    <script type="text/html" id="applicationRoot">
+        <div class="row">
+            <div class="col-md-8">
+                
+                <form>
+                    <div class="form-group">
+                        <select class="form-control" data-bind="options: mq.TextMessageType.options(), optionsCaption: '', optionsText: 'key', optionsValue: 'value', value: message.messageType"></select>
+                        <input type="text" class="form-control" placeholder="Recipients" data-bind="textInput: message.recipients">
+                        <textarea class="form-control" placeholder="Text" data-bind="textInput: message.text"></textarea>
+                    </div>                    
+                </form>
+
+                <button class="btn btn-sm" data-bind="click: sendMessage, enable: isValid()">Send</button>
+                @Html.ActionLink("Return to Queue", "Queue", "Queue", new { area = "" }, new { @class = "btn btn-sm" })              
+                
+            </div>            
+            <div class="col-md-4">
+                <!--ko template:{if: error(), name: 'error', data: {desc: 'Send Message Error!', error: error()}} -->
+                <!--/ko-->
+            </div>
+        </div>
+
+    </script>
+}

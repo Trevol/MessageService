@@ -1,0 +1,171 @@
+﻿@section scripts {
+    <script>
+        $(function () {
+            ko.applyBindings(new mq.MessageQueueApplication(), document.getElementById('appViewport'));
+        })
+    </script>
+}
+
+
+@section koTemplates {
+    @*data: SendMessageApplication*@
+    <script type="text/html" id="applicationRoot">
+        <div class="row">
+            <div class="col-md-8">
+                <button class="btn btn-sm" data-bind="click: loadQueue">Refresh</button>
+                <button class="btn btn-sm" data-bind="click: queueStep">Queue Step</button>
+
+                <!--ko template: {if: !queueError(), name: 'queue', data: {items: queue(), selected: selectedMessage}} -->
+                <!--/ko-->
+                <!--ko template:{if: queueError(), name: 'error', data: {desc: 'Queue Error!', error: queueError()}} -->
+                <!--/ko-->
+                <!--ko template:{if: queueStepError(), name: 'error', data: {desc: 'Queue Step Error!', error: queueStepError()}} -->
+                <!--/ko-->
+
+            </div>
+
+            <div class="col-md-4" data-bind="template: {name: 'attempts', data: selectedMessage()}">
+
+            </div>
+        </div>
+
+
+    </script>
+
+    @*data: message*@
+    <script type="text/html" id="attempts">
+        <!--ko ifnot: $data -->
+        Select message!
+        <!--/ko-->
+        <!--ko if: $data -->
+        <table class="table table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>CreatedOn</th>
+                    <th>Successfull</th>
+                    <th>Error msg</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!--ko foreach: _.chain(sendAttempts).sortBy('createdOn').reverse().value() -->
+                <tr>
+                    <td data-bind="text: id"></td>
+                    <td data-bind="text: createdOn"></td>
+                    <td data-bind="checked: success"></td>
+                    <td data-bind="text: errorInfo"></td>
+                </tr>
+                <!--/ko-->
+            </tbody>
+        </table>
+        <!--/ko-->
+    </script>
+
+    @*data: {items: QueuedMessage[], selected: }*@
+    <script type="text/html" id="queue">
+        <table class="table table-hover table-condensed">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>CreatedOn</th>
+                <th>Type</th>
+                <th>Text</th>
+                <th>Recipients</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!--ko foreach: items -->
+            <tr data-bind="css: {success: $parent.selected() === $data}, click: function(){$parent.selected($data)}">
+                <td data-bind="text: id"></td>
+                <td data-bind="text: createdOn">CreatedOn</td>
+                <td data-bind="text: mq.TextMessageType[messageType]">Type</td>
+                <td data-bind="text: text">Text</td>
+                <td data-bind="text: recipients">Recipients</td>
+            </tr>
+            <!--/ko-->
+            </tbody>
+        </table>
+        <!--ko template: {name: 'pager'} -->
+        <!--/ko-->
+    </script>
+
+    @*data: DATA*@
+    <script type="text/html" id="pager">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li class="disabled">
+                    <span aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </span>
+                </li>
+                <li><span>1</span></li>
+                <li class="disabled"><span>2</span></li>
+                <li class="active"><span>3</span></li>
+                <li><span>4</span></li>
+                <li><span>5</span></li>
+                <li>
+                    <span aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </span>
+                </li>
+            </ul>
+        </nav>
+    </script>
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*
+    <div class="jumbotron">
+        <h1>ASP.NET</h1>
+        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
+        <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Getting started</h2>
+            <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
+            a broad range of clients, including browsers and mobile devices. ASP.NET Web API
+            is an ideal platform for building RESTful applications on the .NET Framework.</p>
+            <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Get more libraries</h2>
+            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+            <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Web Hosting</h2>
+            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+            <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
+        </div>
+    </div>
+*@

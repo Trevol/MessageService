@@ -1,0 +1,30 @@
+﻿<script>
+    (function() {
+        window.onerror = function (msg, url, line) {
+            if (url) {
+                msg = msg + '<br/><br/>url: ' + url;
+            }
+            if (line) {
+                msg = msg + '<br/>line #: ' + line;
+            }
+            tryConsoleLog(msg);
+            alert(msg);
+            return true;
+        };
+
+        function tryConsoleLog(msg) {
+            if (window.console && classof(window.console.log) === "function") {
+                window.console.log(msg);
+            }
+        }
+        function classof(o) {
+            if (o === null) {
+                return "null";
+            }
+            if (o === undefined) {
+                return "undefined";
+            }
+            return Object.prototype.toString.call(o).slice(8, -1).toLowerCase();
+        }
+    })();
+</script>
